@@ -83,7 +83,7 @@ public class Complexo {
         if(real>0)
             return Math.atan(img/real);
         else
-            return Math.atan(img/real)+Math.PI;
+            return Math.atan(img/real)+Math.PI/2;
         
     }
         
