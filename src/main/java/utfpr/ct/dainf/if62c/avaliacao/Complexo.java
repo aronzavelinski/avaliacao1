@@ -16,32 +16,77 @@ public class Complexo {
     }
 
     public Complexo(double real, double img) {
-        // completar a implementação
+        this.real = real;
+        this.img = img;
     }
 
-    // implementar getReal()
+    public double getReal(){
+        return real;
+    }
 
-    // implementar getImg()
-
+    public double getImg(){
+        return img;
+    }
+    
     public Complexo soma(Complexo c) {
         return new Complexo(real + c.real, img + c.img);
     }
     
-    // implementar sub(Complexo)
+   public Complexo sub(Complexo c){
+       return new Complexo(real - c.real, img - c.img);
+   }
 
-    // implementar prod(double)
+   public Complexo prod(double d){
+       return new Complexo(real*d, img*d);
+   }
 
-    // implementar prod(Complexo)
+   // implementar prod(Complexo)
+   public Complexo prod(Complexo c){
+       return new Complexo(real*c.real - img*c.img, real*c.img + img*c.real);
+   }
     
     // implementar div(Complexo)
-    
+   public Complexo div(Complexo c){
+       return new Complexo((real*c.real + img*c.img)/(Math.pow(c.real, 2)+Math.pow(c.img, 2)), 
+               (c.real*img - real*c.img)/(Math.pow(c.real, 2)+Math.pow(c.img, 2)));
+   }
+   
     // implementar sqrt()
     public Complexo[] sqrt() {
-        // completar implementação
-        // retornar o vetor contendo as raízes
-        return null;
+        Complexo[] sqr = new Complexo[2];
+        double r, ro;
+        double auxr,auxi;
+        
+        r = Math.sqrt(Math.pow(real,2)+Math.pow(img,2));
+        ro= calcRo(real, img);
+        auxr = Math.sqrt(r)*Math.cos(ro);
+        auxi = Math.sqrt(r)*Math.sin(ro);
+        sqr[0] = new Complexo(auxr, auxi);
+        auxr = Math.sqrt(r)*Math.cos(ro+Math.PI);
+        auxi = Math.sqrt(r)*Math.sin(ro+Math.PI);        
+        sqr[1] = new Complexo(auxr, auxi);
+        
+        return sqr;
     }
 
+    private double calcRo(double real, double img){
+        double ro;
+        if(real==0){
+            if(img==0){
+                return 0;
+            }else if(img>0){
+                return Math.PI/2;
+            }else if(img<0){
+                return 3*Math.PI/2;
+            }
+        }
+        if(real>0)
+            return Math.atan(img/real);
+        else
+            return Math.atan(img/real)+Math.PI/2;
+        
+    }
+        
     @Override
     public int hashCode() {
         int hash = 5;
